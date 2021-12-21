@@ -61,8 +61,16 @@ class busquedaCoincidenciasController extends Controller
 
     private function crearRegistroBusqueda($aDatos){
         $busqueda = new Busquedas;
-        $busqueda->nombre_buscado = $aDatos['nombre_buscado'];
-        $busqueda->porcentaje_buscado = $aDatos['porcentaje_buscado'];
+        $nombre_buscado = NULL;
+        if($aDatos['nombre_buscado']){
+            $nombre_buscado = $aDatos['nombre_buscado'];
+        }
+        $busqueda->nombre_buscado = $nombre_buscado;
+        $porcentaje_buscado = NULL;
+        if($aDatos['porcentaje_buscado']){
+            $porcentaje_buscado = $aDatos['porcentaje_buscado'];
+        }
+        $busqueda->porcentaje_buscado = $porcentaje_buscado;
         $registros_encontrados = 0;
         if(isset($aDatos['registros_encontrados'])){
             $registros_encontrados = $aDatos['registros_encontrados'];
@@ -177,7 +185,7 @@ class busquedaCoincidenciasController extends Controller
             ];
         }
         return [
-            "estado_ejecucion" => ''
+            "estado_ejecucion" => 0
         ];
     }
 

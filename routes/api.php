@@ -19,3 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/busquedaCoincidencias', 'App\Http\Controllers\busquedaCoincidenciasController@index');
+
+Route::post('/logCoincidencias', 'App\Http\Controllers\logCoincidenciasController@index');
