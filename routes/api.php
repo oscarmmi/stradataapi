@@ -13,11 +13,16 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('auth/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::group([
+    'middleware' => 'jwt.verify',
+    'prefix' => 'auth'
+], function ($router) {    
+    Route::post('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+    Route::post('refresh', [\App\Http\Controllers\AuthController::class, 'refresh'])->name('refresh');
+    Route::post('me', [\App\Http\Controllers\AuthController::class, 'me'])->name('me');
+    Route::post('busquedaCoincidencias', [\App\Http\Controllers\busquedaCoincidenciasController::class, 'index'])->name('busquedaCoincidencias');
+    Route::post('logCoincidencias', [\App\Http\Controllers\logCoincidenciasController::class, 'index'])->name('logCoincidencias');    
 });
 
-Route::post('/busquedaCoincidencias', 'App\Http\Controllers\busquedaCoincidenciasController@index');
 
-Route::post('/logCoincidencias', 'App\Http\Controllers\logCoincidenciasController@index');
